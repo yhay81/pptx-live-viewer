@@ -1,0 +1,285 @@
+{
+  "name": "pptx-live-viewer",
+  "displayName": "%displayName%",
+  "description": "%description%",
+  "version": "0.1.0",
+  "publisher": "yhay81",
+  "license": "MIT",
+  "homepage": "https://github.com/yhay81/pptx-live-viewer#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yhay81/pptx-live-viewer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yhay81/pptx-live-viewer/issues"
+  },
+  "engines": {
+    "vscode": "^1.101.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "pptx",
+    "powerpoint",
+    "slides",
+    "presentation",
+    "viewer",
+    "preview",
+    "office"
+  ],
+  "icon": "images/icon.png",
+  "galleryBanner": {
+    "color": "#1b2433",
+    "theme": "dark"
+  },
+  "main": "./dist/extension.js",
+  "l10n": "./l10n",
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "pptxLiveViewer.viewer",
+        "displayName": "%customEditor.displayName%",
+        "selector": [
+          {
+            "filenamePattern": "*.pptx"
+          },
+          {
+            "filenamePattern": "*.pptm"
+          },
+          {
+            "filenamePattern": "*.ppsx"
+          },
+          {
+            "filenamePattern": "*.ppsm"
+          },
+          {
+            "filenamePattern": "*.potx"
+          },
+          {
+            "filenamePattern": "*.potm"
+          }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "pptxLiveViewer.reload",
+        "title": "%command.reload%",
+        "category": "PPTX Live Viewer",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "pptxLiveViewer.openInDefaultApp",
+        "title": "%command.openInDefaultApp%",
+        "category": "PPTX Live Viewer",
+        "icon": "$(link-external)"
+      },
+      {
+        "command": "pptxLiveViewer.find",
+        "title": "%command.find%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.goToSlide",
+        "title": "%command.goToSlide%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.nextSlide",
+        "title": "%command.nextSlide%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.previousSlide",
+        "title": "%command.previousSlide%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.zoomIn",
+        "title": "%command.zoomIn%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.zoomOut",
+        "title": "%command.zoomOut%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.zoomToFit",
+        "title": "%command.zoomToFit%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.zoomToWidth",
+        "title": "%command.zoomToWidth%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.zoomActualSize",
+        "title": "%command.zoomActualSize%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.toggleThumbnails",
+        "title": "%command.toggleThumbnails%",
+        "category": "PPTX Live Viewer"
+      },
+      {
+        "command": "pptxLiveViewer.toggleNotes",
+        "title": "%command.toggleNotes%",
+        "category": "PPTX Live Viewer"
+      }
+    ],
+    "menus": {
+      "commandPalette": [
+        {
+          "command": "pptxLiveViewer.reload",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.openInDefaultApp",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.find",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.goToSlide",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.nextSlide",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.previousSlide",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.zoomIn",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.zoomOut",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.zoomToFit",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.zoomToWidth",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.zoomActualSize",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.toggleThumbnails",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        },
+        {
+          "command": "pptxLiveViewer.toggleNotes",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "pptxLiveViewer.reload",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer'",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pptxLiveViewer.openInDefaultApp",
+          "when": "activeCustomEditorId == 'pptxLiveViewer.viewer' && resourceScheme == 'file' && !remoteName",
+          "group": "navigation@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "PPTX Live Viewer",
+      "properties": {
+        "pptxLiveViewer.autoReload": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.autoReload%"
+        },
+        "pptxLiveViewer.defaultZoom": {
+          "type": "string",
+          "enum": [
+            "fit",
+            "width",
+            "actual"
+          ],
+          "enumDescriptions": [
+            "%config.defaultZoom.fit%",
+            "%config.defaultZoom.width%",
+            "%config.defaultZoom.actual%"
+          ],
+          "default": "fit",
+          "description": "%config.defaultZoom%"
+        },
+        "pptxLiveViewer.thumbnails": {
+          "type": "boolean",
+          "default": true,
+          "description": "%config.thumbnails%"
+        },
+        "pptxLiveViewer.notes": {
+          "type": "string",
+          "enum": [
+            "auto",
+            "show",
+            "hide"
+          ],
+          "enumDescriptions": [
+            "%config.notes.auto%",
+            "%config.notes.show%",
+            "%config.notes.hide%"
+          ],
+          "default": "auto",
+          "description": "%config.notes%"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc -p tsconfig.json && tsc -p tsconfig.webview.json && tsc -p tsconfig.dev.json",
+    "test": "vitest run",
+    "check": "npm run typecheck && npm test",
+    "dev": "node dev/serve.mjs",
+    "sample": "node dev/make-sample.mjs",
+    "package": "vsce package --no-dependencies",
+    "vscode:prepublish": "node esbuild.mjs --production"
+  },
+  "dependencies": {
+    "@aiden0z/pptx-renderer": "1.4.0",
+    "echarts": "^6.0.0",
+    "jszip": "^3.10.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.5",
+    "@types/vscode": "1.101.0",
+    "@vscode/vsce": "^4.1.0",
+    "esbuild": "^0.28.2",
+    "pptxgenjs": "^4.0.1",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.0"
+  }
+}

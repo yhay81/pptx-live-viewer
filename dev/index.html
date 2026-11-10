@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!--
+  Development page: the viewer in a browser tab, without VS Code. Start it with `npm run dev`.
+
+  The document below is the one src/editor/html.ts builds for the webview, with two differences:
+  the policy also allows requests to this server (connect-src), which is how the page fetches the
+  presentation, and vscode-defaults.css supplies the styles and theme colours VS Code would inject.
+-->
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; connect-src 'self'; img-src 'self' blob: data:; media-src blob: data:; font-src blob: data:; style-src 'self' 'unsafe-inline'; script-src 'nonce-dev'">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PPTX Live Viewer</title>
+<link rel="stylesheet" href="/dev/vscode-defaults.css">
+<link rel="stylesheet" href="/media/viewer.css">
+</head>
+<body>
+<div id="app"></div>
+<script type="application/json" id="init"></script>
+<script nonce="dev" src="/dist/dev/harness.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="ground" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2a3a56"/>
+      <stop offset="1" stop-color="#121926"/>
+    </linearGradient>
+    <linearGradient id="live" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#3fe0c8"/>
+      <stop offset="1" stop-color="#0f9d8c"/>
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="url(#ground)"/>
+  <!-- The slide behind -->
+  <rect x="52" y="44" width="170" height="106" rx="12" fill="#6f81a0" opacity="0.5"/>
+  <!-- The slide in front -->
+  <rect x="28" y="64" width="184" height="116" rx="13" fill="#f6f8fc"/>
+  <rect x="48" y="84" width="92" height="14" rx="7" fill="#1b2433"/>
+  <rect x="48" y="134" width="14" height="26" rx="3.5" fill="#9aabc6"/>
+  <rect x="68" y="120" width="14" height="40" rx="3.5" fill="#0f9d8c"/>
+  <rect x="88" y="108" width="14" height="52" rx="3.5" fill="#3fe0c8"/>
+  <rect x="122" y="112" width="70" height="9" rx="4.5" fill="#b3bdce"/>
+  <rect x="122" y="130" width="54" height="9" rx="4.5" fill="#b3bdce"/>
+  <!-- Reloading -->
+  <circle cx="196" cy="186" r="46" fill="#161e2d"/>
+  <circle cx="196" cy="186" r="38" fill="url(#live)"/>
+  <path d="M 209.8 197.6 A 18 18 0 1 1 209.8 174.4" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round"/>
+  <path d="M 217.5 184.5 L 217.9 166.5 L 201.6 175.6 Z" fill="#ffffff" stroke="#ffffff" stroke-width="3" stroke-linejoin="round"/>
+</svg>

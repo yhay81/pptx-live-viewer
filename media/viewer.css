@@ -1,0 +1,612 @@
+/*
+ * PPTX Live Viewer: styles of the webview.
+ *
+ * Colours come from the VS Code theme through its --vscode-* variables. The fallback values are
+ * what the development page (dev/index.html) falls back to when it defines no theme.
+ */
+
+:root {
+  --pv-bg: var(--vscode-editor-background, #1f1f1f);
+  --pv-fg: var(--vscode-foreground, #cccccc);
+  --pv-muted: var(--vscode-descriptionForeground, #9d9d9d);
+  --pv-border: var(--vscode-contrastBorder, var(--vscode-editorGroup-border, rgba(128, 128, 128, 0.35)));
+  --pv-focus: var(--vscode-focusBorder, #0078d4);
+  --pv-hover: var(--vscode-toolbar-hoverBackground, rgba(90, 93, 94, 0.31));
+  --pv-pressed: var(--vscode-toolbar-activeBackground, rgba(99, 102, 103, 0.31));
+  /* The area behind the slides: the editor background shifted a little towards the text colour,
+     so that a white slide stands out in a light theme and a dark one in a dark theme. */
+  --pv-canvas: color-mix(in srgb, var(--pv-bg) 91%, var(--pv-fg));
+  --pv-slide-edge: rgba(128, 128, 128, 0.3);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--pv-bg);
+  color: var(--pv-fg);
+  font-family: var(--vscode-font-family, system-ui, -apple-system, "Segoe UI", sans-serif);
+  font-size: var(--vscode-font-size, 13px);
+  font-weight: var(--vscode-font-weight, normal);
+}
+
+/* The parts of a control that the browser draws itself, such as the list of the zoom menu, follow the theme. */
+body.vscode-dark,
+body.vscode-high-contrast:not(.vscode-high-contrast-light) {
+  color-scheme: dark;
+}
+
+body.vscode-light,
+body.vscode-high-contrast-light {
+  color-scheme: light;
+}
+
+.pv-app {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-width: 0;
+}
+
+/* --- Controls --------------------------------------------------------------------------- */
+
+.pv-button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  box-sizing: border-box;
+  min-width: 26px;
+  height: 26px;
+  padding: 0 4px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.pv-button:hover:not(:disabled) {
+  background: var(--pv-hover);
+}
+
+.pv-button:active:not(:disabled) {
+  background: var(--pv-pressed);
+}
+
+.pv-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.pv-button[aria-pressed="true"] {
+  border-color: var(--vscode-inputOption-activeBorder, #2488db);
+  background: var(--vscode-inputOption-activeBackground, rgba(36, 137, 219, 0.3));
+  color: var(--vscode-inputOption-activeForeground, inherit);
+}
+
+.pv-button:focus-visible,
+.pv-page:focus-visible,
+.pv-zoom:focus-visible {
+  outline: 1px solid var(--pv-focus);
+  outline-offset: -1px;
+}
+
+.pv-icon {
+  flex: none;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.pv-text-button {
+  padding: 0 10px;
+  border-color: var(--vscode-button-border, var(--pv-border));
+  white-space: nowrap;
+}
+
+.pv-primary {
+  border-color: var(--vscode-button-border, transparent);
+  background: var(--vscode-button-background, #0078d4);
+  color: var(--vscode-button-foreground, #ffffff);
+}
+
+.pv-primary:hover:not(:disabled) {
+  background: var(--vscode-button-hoverBackground, #026ec1);
+}
+
+.pv-page,
+.pv-zoom {
+  box-sizing: border-box;
+  height: 24px;
+  border-radius: 4px;
+  font: inherit;
+}
+
+.pv-page {
+  padding: 0 2px;
+  border: 1px solid var(--vscode-input-border, transparent);
+  background: var(--vscode-input-background, #313131);
+  color: var(--vscode-input-foreground, inherit);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.pv-zoom {
+  max-width: 11em;
+  padding: 0 4px;
+  border: 1px solid var(--vscode-dropdown-border, transparent);
+  background: var(--vscode-dropdown-background, #313131);
+  color: var(--vscode-dropdown-foreground, inherit);
+}
+
+.pv-zoom option {
+  background: var(--vscode-dropdown-listBackground, var(--vscode-dropdown-background, #313131));
+  color: var(--vscode-dropdown-foreground, inherit);
+}
+
+/* --- Toolbar and banner ---------------------------------------------------------------- */
+
+.pv-toolbar {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 2px;
+  box-sizing: border-box;
+  height: 35px;
+  padding: 0 8px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--pv-border);
+  white-space: nowrap;
+  user-select: none;
+}
+
+.pv-separator {
+  flex: none;
+  width: 1px;
+  height: 16px;
+  margin: 0 6px;
+  background: var(--pv-border);
+}
+
+.pv-spacer {
+  flex: 1;
+}
+
+.pv-page-total {
+  margin: 0 4px 0 5px;
+  color: var(--pv-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.pv-problems {
+  padding: 0 6px;
+  color: var(--vscode-editorWarning-foreground, #cca700);
+  font-size: 12px;
+}
+
+.pv-banner {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 8px 3px 12px;
+  border-bottom: 1px solid var(--vscode-inputValidation-warningBorder, #b89500);
+  background: var(--vscode-inputValidation-warningBackground, #352a05);
+  color: var(--vscode-inputValidation-warningForeground, inherit);
+}
+
+.pv-banner-text {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.4;
+}
+
+/* --- Layout ------------------------------------------------------------------------------ */
+
+.pv-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.pv-main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.pv-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--pv-canvas);
+}
+
+/* --- Thumbnails -------------------------------------------------------------------------- */
+
+.pv-thumbs {
+  position: relative;
+  flex: none;
+  box-sizing: border-box;
+  /* Narrower in a narrow editor, where the slides need the room more. */
+  width: clamp(124px, 22vw, 196px);
+  overflow: hidden auto;
+  border-right: 1px solid var(--pv-border);
+  scrollbar-gutter: stable;
+  user-select: none;
+}
+
+.pv-thumb-list {
+  margin: 0;
+  padding: 6px 0;
+  list-style: none;
+}
+
+.pv-thumb {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 6px;
+  align-items: start;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 6px 10px 6px 2px;
+  border: 0;
+  background: none;
+  color: var(--pv-muted);
+  font: inherit;
+  text-align: right;
+  cursor: pointer;
+}
+
+.pv-thumb:focus-visible {
+  outline: none;
+}
+
+.pv-thumb-number {
+  font-size: 11px;
+  line-height: 16px;
+  font-variant-numeric: tabular-nums;
+}
+
+.pv-thumb-frame {
+  display: block;
+  position: relative;
+  aspect-ratio: var(--pv-thumb-aspect, 16 / 9);
+  overflow: hidden;
+  border-radius: 2px;
+  outline: 1px solid var(--pv-slide-edge);
+  background: #ffffff;
+}
+
+/*
+ * While a thumbnail is being replaced after a reload, the old and the new rendering overlap.
+ * One that was drawn for another width of the sidebar is scaled to fit until it is drawn again.
+ */
+.pv-thumb-frame > [data-pptx-thumbnail] {
+  position: absolute !important;
+  top: 0;
+  left: 0;
+  transform: scale(var(--pv-thumb-fit, 1));
+  transform-origin: top left;
+}
+
+.pv-thumb:hover .pv-thumb-frame {
+  outline: 2px solid color-mix(in srgb, var(--pv-focus) 55%, transparent);
+}
+
+.pv-thumb[aria-current="true"] {
+  color: var(--pv-fg);
+}
+
+.pv-thumb[aria-current="true"] .pv-thumb-frame {
+  outline: 2px solid var(--pv-focus);
+}
+
+.pv-thumb:focus-visible .pv-thumb-frame {
+  outline: 2px solid var(--pv-focus);
+  outline-offset: 2px;
+}
+
+.pv-thumb-hidden .pv-thumb-frame {
+  opacity: 0.45;
+}
+
+.pv-thumb-hidden .pv-thumb-number {
+  text-decoration: line-through;
+}
+
+/* --- Slides ------------------------------------------------------------------------------ */
+
+.pv-scroller {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  outline: none;
+  background: var(--pv-canvas);
+  /* A scroll bar that comes and goes would change the width the slides are fitted to. */
+  scrollbar-gutter: stable;
+}
+
+.pv-scroller.pv-fitted {
+  overflow-x: hidden;
+}
+
+/* A new version of the file is laid out behind the one on show until it is ready. */
+.pv-scroller.pv-pending {
+  visibility: hidden;
+}
+
+/*
+ * The renderer lays every slide out at its natural size and writes that size into inline styles.
+ * These rules replace it with the zoomed size the stage sets through custom properties, which is
+ * why they need !important.
+ */
+.pv-list {
+  box-sizing: border-box;
+  width: max-content;
+  min-width: 100%;
+  padding: var(--pv-pad-y) var(--pv-pad-x);
+}
+
+.pv-list > [data-slide-index] {
+  position: relative;
+  margin: 0 auto var(--pv-gap) !important;
+}
+
+.pv-list > [data-slide-index]:last-child {
+  margin-bottom: 0 !important;
+}
+
+.pv-list > [data-slide-index]::before {
+  content: attr(data-pv-label);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  margin-bottom: 5px;
+  color: var(--pv-muted);
+  font-size: 11px;
+  line-height: 14px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.pv-list > [data-slide-index] > div:first-child {
+  width: var(--pv-slide-w) !important;
+  height: var(--pv-slide-h) !important;
+  box-shadow:
+    0 0 0 1px var(--pv-slide-edge),
+    0 2px 10px rgba(0, 0, 0, 0.22) !important;
+}
+
+.pv-list > [data-slide-index] > div:first-child > * {
+  transform: scale(var(--pv-scale)) !important;
+  transform-origin: top left !important;
+}
+
+/*
+ * Slide content must not pick up the editor's text styles, nor the limits VS Code puts on images
+ * in webviews; the renderer positions and sizes everything itself.
+ */
+.pv-list > [data-slide-index] > div:first-child,
+.pv-thumb-frame > [data-pptx-thumbnail] {
+  color: #000000;
+  font: normal 16px / normal sans-serif;
+  letter-spacing: normal;
+  text-align: start;
+  user-select: text;
+  /* A slide is a picture of the document: it looks the same in every theme, high contrast included. */
+  color-scheme: light;
+  forced-color-adjust: none;
+}
+
+.pv-list img,
+.pv-list video,
+.pv-thumb-frame img,
+.pv-thumb-frame video {
+  max-width: none;
+  max-height: none;
+}
+
+/* Every search match in the slides on screen, and the current one (CSS Custom Highlight API). */
+::highlight(pv-find) {
+  background-color: #ffe14d;
+  color: #000000;
+}
+
+::highlight(pv-find-current) {
+  background-color: #ff9632;
+  color: #000000;
+  text-decoration: underline;
+}
+
+/* --- Find bar ---------------------------------------------------------------------------- */
+
+.pv-find {
+  position: absolute;
+  top: 0;
+  right: 24px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  box-sizing: border-box;
+  max-width: calc(100% - 32px);
+  padding: 4px 4px 4px 6px;
+  border: 1px solid var(--vscode-contrastBorder, var(--vscode-editorWidget-border, var(--pv-border)));
+  border-top: 0;
+  border-radius: 0 0 5px 5px;
+  background: var(--vscode-editorWidget-background, #252526);
+  color: var(--vscode-editorWidget-foreground, inherit);
+  box-shadow: 0 2px 8px var(--vscode-widget-shadow, rgba(0, 0, 0, 0.36));
+}
+
+.pv-find-field {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  box-sizing: border-box;
+  min-width: 0;
+  height: 26px;
+  padding-right: 2px;
+  border: 1px solid var(--vscode-input-border, transparent);
+  border-radius: 4px;
+  background: var(--vscode-input-background, #313131);
+}
+
+.pv-find-field:focus-within {
+  border-color: var(--pv-focus);
+}
+
+.pv-find-field:has(.pv-invalid) {
+  border-color: var(--vscode-inputValidation-errorBorder, #be1100);
+}
+
+.pv-find-input {
+  flex: 1;
+  width: 180px;
+  min-width: 40px;
+  height: 22px;
+  padding: 0 6px;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--vscode-input-foreground, inherit);
+  font: inherit;
+}
+
+.pv-find-input::placeholder {
+  color: var(--vscode-input-placeholderForeground, var(--pv-muted));
+}
+
+.pv-find-option {
+  min-width: 22px;
+  height: 20px;
+  padding: 0 3px;
+  border-radius: 3px;
+  font-size: 12px;
+}
+
+.pv-find-status {
+  flex: none;
+  min-width: 68px;
+  padding: 0 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.pv-find-empty {
+  color: var(--vscode-errorForeground, #f85149);
+}
+
+/* --- Speaker notes ----------------------------------------------------------------------- */
+
+.pv-notes {
+  position: relative;
+  display: flex;
+  flex: none;
+  flex-direction: column;
+  box-sizing: border-box;
+  height: var(--pv-notes-h, 132px);
+  min-height: 48px;
+  max-height: 70%;
+  border-top: 1px solid var(--pv-border);
+}
+
+.pv-notes-resizer {
+  position: absolute;
+  top: -3px;
+  right: 0;
+  left: 0;
+  z-index: 6;
+  height: 6px;
+  cursor: ns-resize;
+  outline: none;
+  touch-action: none;
+  transition: background-color 0.1s ease-out 0.15s;
+}
+
+.pv-notes-resizer:hover,
+.pv-notes-resizer:active,
+.pv-notes-resizer:focus-visible {
+  background: var(--vscode-sash-hoverBorder, var(--pv-focus));
+}
+
+.pv-notes-body {
+  flex: 1;
+  min-height: 0;
+  padding: 9px 16px 12px;
+  overflow: auto;
+  outline: none;
+  line-height: 1.5;
+  user-select: text;
+}
+
+.pv-notes-body:focus-visible {
+  outline: 1px solid var(--pv-focus);
+  outline-offset: -1px;
+}
+
+.pv-note {
+  min-height: 1.5em;
+  margin: 0 0 0.35em;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.pv-notes-empty {
+  margin: 0;
+  color: var(--pv-muted);
+}
+
+/* --- Loading, empty and error states ----------------------------------------------------- */
+
+.pv-message {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: var(--pv-canvas);
+}
+
+.pv-message-box {
+  max-width: 520px;
+  text-align: center;
+}
+
+.pv-message-box h2 {
+  margin: 0 0 8px;
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.pv-message-box p {
+  margin: 0;
+  color: var(--pv-muted);
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.pv-message-box .pv-button {
+  margin-top: 16px;
+}
