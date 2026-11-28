@@ -273,6 +273,14 @@
     "echarts": "^6.0.0",
     "jszip": "^3.10.1"
   },
+  "overrides": {
+    "@vscode/vsce": {
+      "minimatch": "11.0.9"
+    },
+    "pptxgenjs": {
+      "image-size": "2.2.0"
+    }
+  },
   "devDependencies": {
     "@types/node": "^26.6.7",
     "@types/vscode": "1.101.0",
@@ -280,6 +288,6 @@
     "esbuild": "^0.28.2",
     "pptxgenjs": "^4.0.1",
     "typescript": "^7.0.2",
-    "vitest": "^5.1.1"
+    "vitest": "^5.1.2"
   }
 }
